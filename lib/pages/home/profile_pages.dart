@@ -80,7 +80,7 @@ class ProfilePage extends StatelessWidget {
               text,
               style: secondaryTextStyle.copyWith(fontSize: 13),
             ),
-            Icon(
+            const Icon(
               Icons.chevron_right,
               color: primaryTextColor,
             )
@@ -94,7 +94,7 @@ class ProfilePage extends StatelessWidget {
           child: Container(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
         width: double.infinity,
-        decoration: BoxDecoration(color: bgColor3),
+        decoration: const BoxDecoration(color: bgColor3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

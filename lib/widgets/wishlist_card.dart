@@ -7,8 +7,8 @@ class WishlistCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.only(top: 10, left: 12, bottom: 14, right: 20),
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 10, left: 12, bottom: 14, right: 20),
       width: 200,
       decoration: BoxDecoration(
         color: bgColor4,
@@ -23,7 +23,7 @@ class WishlistCard extends StatelessWidget {
               width: 60,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Expanded(

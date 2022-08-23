@@ -63,7 +63,7 @@ class CartPage extends StatelessWidget {
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [CartCard()],
+        children: const [CartCard()],
       );
     }
 
@@ -92,7 +92,7 @@ class CartPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Divider(
+            const Divider(
               thickness: 0.5,
               color: subtitleColor,
             ),
@@ -121,7 +121,7 @@ class CartPage extends StatelessWidget {
                       style: primaryTextStyle.copyWith(
                           fontSize: 16, fontWeight: semiBold),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward,
                       color: primaryTextColor,
                     )

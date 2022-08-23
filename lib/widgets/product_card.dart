@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:sneakerz/models/product_model.dart';
+import 'package:sneakerz/pages/product_page.dart';
 import 'package:sneakerz/theme.dart';
 
 class ProductCard extends StatelessWidget {
   // const ProductCard({Key? key}) : super(key: key);
 
   final ProductModel? product;
- ProductCard({this.product});
+  ProductCard({this.product});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(product!),
+          ),
+        );
       },
       child: Container(
         width: 215,
         height: 278,
         margin: EdgeInsets.only(right: defaultMargin),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Color(0xffECEDEF)),
+            borderRadius: BorderRadius.circular(20), color: const Color(0xffECEDEF)),
         child: Container(
           margin: EdgeInsets.only(left: defaultMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             const  SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Image.network(

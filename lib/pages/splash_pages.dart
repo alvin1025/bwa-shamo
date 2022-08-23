@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakerz/pages/sign_in_pages.dart';
 import 'package:sneakerz/providers/product_provider.dart';
 import 'package:sneakerz/theme.dart';
 
@@ -36,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Container(
           width: 130,
           height: 100,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/Splashscreen.png'))),
         ),

@@ -43,9 +43,9 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => const MainPage()));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: alertColor,
-            content: const Text(
+            content: Text(
               'Gagal Register',
               textAlign: TextAlign.center,
             )));
@@ -330,7 +330,7 @@ class _SignUpPageState extends State<SignUpPage> {
               usernameInput(),
               emailInput(),
               passwordInput(),
-              isLoading ? LoadingButton() : buttonSignUp(),
+              isLoading ? const LoadingButton() : buttonSignUp(),
               const Spacer(),
               footer()
             ],

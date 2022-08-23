@@ -32,9 +32,9 @@ class _MainPageState extends State<MainPage> {
 
     Widget customButtonNav() {
       return ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
         child: BottomAppBar(
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           notchMargin: 12,
           clipBehavior: Clip.antiAlias,
           child: BottomNavigationBar(
@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
               items: [
                 BottomNavigationBarItem(
                   icon: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    margin: const EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset(
                       'assets/Home_Icon.png',
                       width: 20,
@@ -62,7 +62,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    margin: const EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset(
                       'assets/Chat_Icon.png',
                       width: 20,
@@ -74,7 +74,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    margin: const EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset(
                       'assets/Love_Icon.png',
                       width: 20,
@@ -86,7 +86,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    margin: const EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset(
                       'assets/Prof_Icon.png',
                       width: 18,
@@ -104,19 +104,19 @@ class _MainPageState extends State<MainPage> {
     Widget body() {
       switch (_currentIndex) {
         case 0:
-          return HomePage();
+          return const HomePage();
 
         case 1:
-          return ChatPage();
+          return const ChatPage();
 
         case 2:
-          return WishlistPage();
+          return const WishlistPage();
 
         case 3:
-          return ProfilePage();
+          return const ProfilePage();
 
         default:
-          return HomePage();
+          return const HomePage();
       }
     }
 

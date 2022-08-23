@@ -33,7 +33,7 @@ class ChatPage extends StatelessWidget {
               width: 80,
               height: 80,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -41,7 +41,7 @@ class ChatPage extends StatelessWidget {
               style:
                   primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
@@ -50,7 +50,7 @@ class ChatPage extends StatelessWidget {
                   subtitleTextStyle.copyWith(fontSize: 14, fontWeight: reguler),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 20),
               height: 44,
               width: 152,
               child: TextButton(
@@ -77,7 +77,7 @@ class ChatPage extends StatelessWidget {
         width: double.infinity,
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [ChatTile()],
+          children: const [ChatTile()],
         ),
       ));
     }

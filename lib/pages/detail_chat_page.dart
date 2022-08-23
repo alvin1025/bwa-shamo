@@ -11,8 +11,8 @@ class DetailChat extends StatelessWidget {
       return Container(
         width: 225,
         height: 74,
-        margin: EdgeInsets.only(bottom: 20),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: bgColor5,
             borderRadius: BorderRadius.circular(12),
@@ -27,7 +27,7 @@ class DetailChat extends StatelessWidget {
                 width: 54,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -60,7 +60,7 @@ class DetailChat extends StatelessWidget {
 
     Widget chatInput() {
       return Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -71,7 +71,7 @@ class DetailChat extends StatelessWidget {
                 Expanded(
                   child: Container(
                     height: 45,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                         color: bgColor4,
                         borderRadius: BorderRadius.circular(12)),
@@ -84,7 +84,7 @@ class DetailChat extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Image.asset(
@@ -128,7 +128,7 @@ class DetailChat extends StatelessWidget {
                     'assets/Logo_Online.png',
                     width: 40,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 12,
                   ),
                   Column(
@@ -149,7 +149,7 @@ class DetailChat extends StatelessWidget {
                 ],
               ),
             ),
-            preferredSize: Size.fromHeight(70)),
+            preferredSize: const Size.fromHeight(70)),
         bottomNavigationBar: chatInput(),
         body: content());
   }

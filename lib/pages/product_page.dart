@@ -21,11 +21,11 @@ class _ProductPageState extends State<ProductPage> {
 
   List familiarShoes = [
     'assets/Sepatu.png',
-    'assets/Sepatu.png',
-    'assets/Sepatu.png',
-    'assets/Sepatu.png',
-    'assets/Sepatu.png',
-    'assets/Sepatu.png',
+    'assets/Sepatu2.png',
+    'assets/Sepatu3.png',
+    'assets/Sepatu4.png',
+    'assets/Sepatu5.png',
+    'assets/Sepatu7.png',
   ];
 
   int currentIndex = 0;
@@ -53,7 +53,7 @@ class _ProductPageState extends State<ProductPage> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.close,
                               color: primaryTextColor,
                             ),
@@ -111,7 +111,7 @@ class _ProductPageState extends State<ProductPage> {
         width: currentIndex == index ? 16 : 4,
         height: 4,
         decoration: BoxDecoration(
-            color: currentIndex == index ? primaryColor : Color(0xffC4C4C4),
+            color: currentIndex == index ? primaryColor : const Color(0xffC4C4C4),
             borderRadius: BorderRadius.circular(10)),
       );
     }
@@ -131,11 +131,11 @@ class _ProductPageState extends State<ProductPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.chevron_left),
+                  icon: const Icon(Icons.chevron_left),
                 ),
                 IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.shopping_bag,
                       color: bgColor1,
                     ))
@@ -143,10 +143,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: images
+            items: widget.product.galleries!
                 .map(
-                  (image) => Image.asset(
-                    image,
+                  (image) => Image.network(
+                    '${image.url}',
                     width: MediaQuery.of(context).size.width,
                     height: 310,
                     fit: BoxFit.cover,
@@ -167,7 +167,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images.map((e) {
+            children: widget.product.galleries!.map((e) {
               index++;
               return indicator(index);
             }).toList(),
@@ -193,7 +193,7 @@ class _ProductPageState extends State<ProductPage> {
       return Container(
         margin: const EdgeInsets.only(top: 17),
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: bgColor1,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(24),
@@ -215,12 +215,12 @@ class _ProductPageState extends State<ProductPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "TERREX URBAN LOW",
+                        "${widget.product.name}",
                         style: primaryTextStyle.copyWith(
                             fontSize: 19, fontWeight: semiBold),
                       ),
                       Text(
-                        'Hiking',
+                        '${widget.product.category?.name}',
                         style: secondaryTextStyle.copyWith(fontSize: 12),
                       )
                     ],
@@ -231,16 +231,16 @@ class _ProductPageState extends State<ProductPage> {
                         isWishlist = !isWishlist;
                       });
                       if (isWishlist) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             backgroundColor: secondaryColor,
                             content: Text(
                               'Has been added to the Wishlist',
                               textAlign: TextAlign.center,
                             )));
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             backgroundColor: alertColor,
-                            content: Text(
+                            content:Text(
                               'Has been removed from the Wishlist',
                               textAlign: TextAlign.center,
                             )));
@@ -260,12 +260,12 @@ class _ProductPageState extends State<ProductPage> {
             //Note: Price
 
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 20,
               ),
               width: 315,
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
               decoration: BoxDecoration(
                   color: bgColor2, borderRadius: BorderRadius.circular(4)),
               child: Row(
@@ -276,7 +276,7 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$143,98',
+                    '\$${widget.product.price}',
                     style: priceTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
                   )
@@ -298,11 +298,11 @@ class _ProductPageState extends State<ProductPage> {
                     'Description',
                     style: primaryTextStyle.copyWith(fontWeight: medium),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Text(
-                    'Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.',
+                    '${widget.product.description}',
                     style: subtitleTextStyle.copyWith(fontWeight: light),
                     textAlign: TextAlign.justify,
                   )
@@ -324,7 +324,7 @@ class _ProductPageState extends State<ProductPage> {
                       style: primaryTextStyle.copyWith(fontWeight: medium),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   SingleChildScrollView(
@@ -356,12 +356,12 @@ class _ProductPageState extends State<ProductPage> {
                     child: Container(
                       width: 54,
                       height: 54,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/Button_Chat.png'))),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16,
                   ),
                   Expanded(

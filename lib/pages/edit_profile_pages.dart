@@ -28,7 +28,7 @@ class EditProfile extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: user?.name,
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
-                enabledBorder: UnderlineInputBorder(
+                enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),
                 ),
               ),
@@ -54,7 +54,7 @@ class EditProfile extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: '@${user?.username}',
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
-                enabledBorder: UnderlineInputBorder(
+                enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),
                 ),
               ),
@@ -80,7 +80,7 @@ class EditProfile extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: user?.email,
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
-                enabledBorder: UnderlineInputBorder(
+                enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),
                 ),
               ),
@@ -100,7 +100,7 @@ class EditProfile extends StatelessWidget {
               margin: EdgeInsets.only(top: defaultMargin),
               width: 100,
               height: 100,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     image: AssetImage('assets/Profile_Icon.png'),
@@ -121,7 +121,7 @@ class EditProfile extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
         ),
         centerTitle: true,
         title: Text(
@@ -133,7 +133,7 @@ class EditProfile extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
                 color: primaryColor,
               ))

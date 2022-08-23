@@ -31,7 +31,7 @@ class WishlistPage extends StatelessWidget {
               'assets/Wishlist.png',
               width: 74,
             ),
-            SizedBox(
+            const SizedBox(
               height: 23,
             ),
             Text(
@@ -39,20 +39,20 @@ class WishlistPage extends StatelessWidget {
               style:
                   primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
               'Let\'s find your favorite shoes',
               style: subtitleTextStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12))),
@@ -72,7 +72,7 @@ class WishlistPage extends StatelessWidget {
         color: bgColor3,
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [WishlistCard(), WishlistCard()],
+          children: const [WishlistCard(), WishlistCard()],
         ),
       ));
     }

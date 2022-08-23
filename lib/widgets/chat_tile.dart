@@ -10,10 +10,10 @@ class ChatTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailChat()));
+            context, MaterialPageRoute(builder: (context) => const DetailChat()));
       },
       child: Container(
-        margin: EdgeInsets.only(top: 33),
+        margin: const EdgeInsets.only(top: 33),
         child: Column(
           children: [
             Row(
@@ -23,7 +23,7 @@ class ChatTile extends StatelessWidget {
                   width: 54,
                   height: 54,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(
@@ -51,10 +51,10 @@ class ChatTile extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0xff2B2939),
             )

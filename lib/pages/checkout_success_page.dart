@@ -15,7 +15,7 @@ class CheckoutSuccessPage extends StatelessWidget {
               'assets/Empty_Cart_Icon.png',
               width: 78,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -23,7 +23,7 @@ class CheckoutSuccessPage extends StatelessWidget {
               style:
                   primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
@@ -35,7 +35,7 @@ class CheckoutSuccessPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Container(
-              margin: EdgeInsets.only(top: 30),
+              margin: const EdgeInsets.only(top: 30),
               width: 180,
               decoration: BoxDecoration(
                   color: primaryColor, borderRadius: BorderRadius.circular(12)),
@@ -52,10 +52,10 @@ class CheckoutSuccessPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 12),
+              margin: const EdgeInsets.only(top: 12),
               width: 180,
               decoration: BoxDecoration(
-                  color: Color(0xff39374B),
+                  color: const Color(0xff39374B),
                   borderRadius: BorderRadius.circular(12)),
               child: TextButton(
                 onPressed: () {},

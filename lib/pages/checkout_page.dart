@@ -22,8 +22,8 @@ class CheckOutPage extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: medium),
                 ),
-                CheckoutCard(),
-                CheckoutCard(),
+                const CheckoutCard(),
+                const CheckoutCard(),
               ],
             ),
           ),
@@ -31,7 +31,7 @@ class CheckOutPage extends StatelessWidget {
           //NOTE: ADDRESS DETAILS
           Container(
             margin: EdgeInsets.only(top: defaultMargin),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
               color: bgColor4,
               borderRadius: BorderRadius.circular(12),
@@ -44,7 +44,7 @@ class CheckOutPage extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: medium),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
@@ -65,7 +65,7 @@ class CheckOutPage extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     Expanded(
@@ -109,7 +109,7 @@ class CheckOutPage extends StatelessWidget {
           //NOTE: PAYMENTS SUMMARY
           Container(
             margin: EdgeInsets.only(top: defaultMargin),
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: bgColor4,
               borderRadius: BorderRadius.circular(12),
@@ -122,7 +122,7 @@ class CheckOutPage extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                       fontWeight: medium, fontSize: 16),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
@@ -140,7 +140,7 @@ class CheckOutPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
@@ -158,7 +158,7 @@ class CheckOutPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Row(
@@ -176,14 +176,14 @@ class CheckOutPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   color: Color(0xff2E3141),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -210,10 +210,10 @@ class CheckOutPage extends StatelessWidget {
             height: defaultMargin,
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 12),
+            margin: const EdgeInsets.only(bottom: 12),
             child: TextButton(
                 style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 13,
                   ),
                   backgroundColor: primaryColor,
