@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sneakerz/models/product_model.dart';
+import 'package:sneakerz/providers/wishlist_provider.dart';
 import 'package:sneakerz/theme.dart';
 
 class ProductPage extends StatefulWidget {
@@ -29,10 +31,12 @@ class _ProductPageState extends State<ProductPage> {
   ];
 
   int currentIndex = 0;
-  bool isWishlist = false;
 
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
+
     //NOTE: MODALS
     Future<void> showSuccessDialog() async {
       return showDialog(
@@ -195,7 +199,7 @@ class _ProductPageState extends State<ProductPage> {
         width: double.infinity,
         decoration: const BoxDecoration(
           color: bgColor1,
-          borderRadius: const BorderRadius.vertical(
+          borderRadius: BorderRadius.vertical(
             top: Radius.circular(24),
           ),
         ),
@@ -227,10 +231,8 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isWishlist = !isWishlist;
-                      });
-                      if (isWishlist) {
+                      wishlistProvider.setProduct(widget.product);
+                      if (wishlistProvider.isWishlist(widget.product)) {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             backgroundColor: secondaryColor,
                             content: Text(
@@ -247,7 +249,7 @@ class _ProductPageState extends State<ProductPage> {
                       }
                     },
                     child: Image.asset(
-                      isWishlist
+                      wishlistProvider.isWishlist(widget.product)
                           ? 'assets/WishLove.png'
                           : 'assets/Button_Wishlist.png',
                       width: 46,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakerz/providers/wishlist_provider.dart';
 import 'package:sneakerz/theme.dart';
 import 'package:sneakerz/widgets/wishlist_card.dart';
 
@@ -7,6 +9,8 @@ class WishlistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     Widget header() {
       return AppBar(
         backgroundColor: bgColor1,
@@ -52,10 +56,13 @@ class WishlistPage extends StatelessWidget {
             TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  backgroundColor: primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
                 child: Text(
                   'Explore Store',
                   style: primaryTextStyle.copyWith(
@@ -72,7 +79,7 @@ class WishlistPage extends StatelessWidget {
         color: bgColor3,
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: const [WishlistCard(), WishlistCard()],
+          children: wishlistProvider.wishlist.map((product) => WishlistCard(product)).toList(),
         ),
       ));
     }
@@ -81,7 +88,7 @@ class WishlistPage extends StatelessWidget {
       children: [
         header(),
         // emptyWishlist(),
-        content(),
+        wishlistProvider.wishlist.isEmpty ? emptyWishlist() : content(),
       ],
     );
   }

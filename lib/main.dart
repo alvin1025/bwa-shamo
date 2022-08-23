@@ -12,6 +12,7 @@ import 'package:sneakerz/pages/sign_up_pages.dart';
 import 'package:sneakerz/pages/splash_pages.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/providers/product_provider.dart';
+import 'package:sneakerz/providers/wishlist_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WishlistProvider(),
         ),
       ],
       child: MaterialApp(
