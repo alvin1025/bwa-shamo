@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakerz/pages/cart_page.dart';
@@ -11,10 +12,16 @@ import 'package:sneakerz/pages/sign_in_pages.dart';
 import 'package:sneakerz/pages/sign_up_pages.dart';
 import 'package:sneakerz/pages/splash_pages.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
+import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/providers/product_provider.dart';
+import 'package:sneakerz/providers/transaction_provider.dart';
 import 'package:sneakerz/providers/wishlist_provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -32,6 +39,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => WishlistProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TransactionProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,7 +53,6 @@ class MyApp extends StatelessWidget {
           '/sign-in': (context) => const SignInPage(),
           '/sign-up': (context) => SignUpPage(),
           '/home': (context) => const MainPage(),
-          '/detail-chat': (context) => const DetailChat(),
           '/edit-profile': (context) => const EditProfile(),
           '/cart': (context) => const CartPage(),
           '/checkout': (context) => const CheckOutPage(),

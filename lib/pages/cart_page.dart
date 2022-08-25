@@ -1,61 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'package:sneakerz/models/cart_model.dart';
+import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/theme.dart';
 import 'package:sneakerz/widgets/cart_card.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
+  // final CartModel cart;
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    
     Widget emptyCart() {
-      return Expanded(
-        child: Container(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/Empty_Cart.png',
-                width: 80,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Opss! Your Cart is Empty',
-                style:
-                    primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                'Let\'s find your favorite shoes',
-                style: secondaryTextStyle,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: 150,
-                height: 44,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/home', (route) => false);
-                    },
-                    child: Text(
-                      'Explore Store',
-                      style: primaryTextStyle.copyWith(
-                          fontSize: 16, fontWeight: medium),
-                    )),
-              )
-            ],
-          ),
+      return Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/Empty_Cart.png',
+              width: 80,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Opss! Your Cart is Empty',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              'Let\'s find your favorite shoes',
+              style: secondaryTextStyle,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 150,
+              height: 44,
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12))),
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
+                  },
+                  child: Text(
+                    'Explore Store',
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 16, fontWeight: medium),
+                  )),
+            )
+          ],
         ),
       );
     }
@@ -63,7 +67,11 @@ class CartPage extends StatelessWidget {
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: const [CartCard()],
+        children: cartProvider.carts
+            .map(
+              (cart) => CartCard(cart),
+            )
+            .toList(),
       );
     }
 
@@ -82,7 +90,7 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$287,96',
+                    '\$${cartProvider.totalPrice()}',
                     style: priceTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
                   )
@@ -145,10 +153,8 @@ class CartPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: content(),
-      bottomNavigationBar: custonBottonNav(),
+      body: cartProvider.carts.isEmpty ? emptyCart() : content(),
+      bottomNavigationBar: cartProvider.carts.isEmpty ? const SizedBox() : custonBottonNav(),
     );
   }
 }
-
-

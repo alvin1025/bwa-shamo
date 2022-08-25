@@ -2,13 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakerz/models/product_model.dart';
+import 'package:sneakerz/pages/detail_chat_page.dart';
+import 'package:sneakerz/pages/home/chat_pages.dart';
+import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/providers/wishlist_provider.dart';
 import 'package:sneakerz/theme.dart';
 
 class ProductPage extends StatefulWidget {
   final ProductModel product;
   ProductPage(this.product);
-
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -35,7 +37,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
-
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     //NOTE: MODALS
     Future<void> showSuccessDialog() async {
@@ -89,7 +91,9 @@ class _ProductPageState extends State<ProductPage> {
                           width: 155,
                           height: 44,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/cart');
+                            },
                             style: TextButton.styleFrom(
                               backgroundColor: primaryColor,
                               shape: RoundedRectangleBorder(
@@ -115,7 +119,8 @@ class _ProductPageState extends State<ProductPage> {
         width: currentIndex == index ? 16 : 4,
         height: 4,
         decoration: BoxDecoration(
-            color: currentIndex == index ? primaryColor : const Color(0xffC4C4C4),
+            color:
+                currentIndex == index ? primaryColor : const Color(0xffC4C4C4),
             borderRadius: BorderRadius.circular(10)),
       );
     }
@@ -233,19 +238,21 @@ class _ProductPageState extends State<ProductPage> {
                     onTap: () {
                       wishlistProvider.setProduct(widget.product);
                       if (wishlistProvider.isWishlist(widget.product)) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            backgroundColor: secondaryColor,
-                            content: Text(
-                              'Has been added to the Wishlist',
-                              textAlign: TextAlign.center,
-                            )));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                                backgroundColor: secondaryColor,
+                                content: Text(
+                                  'Has been added to the Wishlist',
+                                  textAlign: TextAlign.center,
+                                )));
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            backgroundColor: alertColor,
-                            content:Text(
-                              'Has been removed from the Wishlist',
-                              textAlign: TextAlign.center,
-                            )));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                                backgroundColor: alertColor,
+                                content: Text(
+                                  'Has been removed from the Wishlist',
+                                  textAlign: TextAlign.center,
+                                )));
                       }
                     },
                     child: Image.asset(
@@ -353,7 +360,12 @@ class _ProductPageState extends State<ProductPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/detail-chat');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailChat(widget.product),
+                        ),
+                      );
                     },
                     child: Container(
                       width: 54,
@@ -375,6 +387,7 @@ class _ProductPageState extends State<ProductPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12))),
                           onPressed: () {
+                            cartProvider.addCart(widget.product);
                             showSuccessDialog();
                           },
                           child: Text(

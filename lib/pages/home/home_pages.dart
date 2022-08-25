@@ -43,10 +43,12 @@ class HomePage extends StatelessWidget {
             Container(
               width: 54,
               height: 54,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('assets/Profile_Icon.png'))),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage('${user?.profilePhotoUrl}'),
+                ),
+              ),
             )
           ],
         ),
@@ -161,7 +163,9 @@ class HomePage extends StatelessWidget {
               ),
               Row(
                 children: productProvider.products
-                    .map((product) => ProductCard(product: product,))
+                    .map((product) => ProductCard(
+                          product: product,
+                        ))
                     .toList(),
               )
             ],
@@ -187,7 +191,9 @@ class HomePage extends StatelessWidget {
           top: 14,
         ),
         child: Column(
-          children: productProvider.products.map((product) => ProductTile(product)).toList(),
+          children: productProvider.products
+              .map((product) => ProductTile(product))
+              .toList(),
         ),
       );
     }

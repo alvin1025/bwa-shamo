@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneakerz/models/product_model.dart';
 import 'package:sneakerz/pages/detail_chat_page.dart';
 import 'package:sneakerz/theme.dart';
 
@@ -10,7 +11,13 @@ class ChatTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const DetailChat()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailChat(
+              UninitializedProductModel(),
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(top: 33),
