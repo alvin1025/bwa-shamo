@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sneakerz/models/product_model.dart';
 import 'package:sneakerz/theme.dart';
 
 class ChatBuble extends StatelessWidget {
   final String? text;
   final bool? isSender;
-  final bool? hasProduct;
+  final ProductModel? product;
 
-  ChatBuble({this.isSender = false, this.text = '', this.hasProduct = false});
+  ChatBuble({this.isSender = false, this.text = '', this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,8 @@ class ChatBuble extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'assets/Sepatu.png',
+                  child: Image.network(
+                    '${product?.galleries?[0].url}',
                     width: 70,
                   ),
                 ),
@@ -44,13 +45,13 @@ class ChatBuble extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'COURT VISION 2.0 SHOES',
+                        '${product?.name}',
                         style: primaryTextStyle.copyWith(
                             fontSize: 14, fontWeight: medium),
                         // overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        '\$57,15',
+                        '\$${product?.price}',
                         style: priceTextStyle.copyWith(
                             fontSize: 14, fontWeight: medium),
                       )
@@ -99,7 +100,7 @@ class ChatBuble extends StatelessWidget {
         crossAxisAlignment:
             isSender! ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          hasProduct! ? productPreview() : const SizedBox(),
+          product is UninitializedProductModel ? const SizedBox() : productPreview(),
           Row(
             mainAxisAlignment:
                 isSender! ? MainAxisAlignment.end : MainAxisAlignment.start,

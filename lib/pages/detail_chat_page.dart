@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakerz/models/message_model.dart';
 import 'package:sneakerz/models/product_model.dart';
+import 'package:sneakerz/providers/auth_provider.dart';
+import 'package:sneakerz/services/message_service.dart';
 import 'package:sneakerz/theme.dart';
 import 'package:sneakerz/widgets/chat_buble.dart';
 
@@ -13,9 +17,23 @@ class DetailChat extends StatefulWidget {
 }
 
 class _DetailChatState extends State<DetailChat> {
+  TextEditingController messageController = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
+    handleAddMessage() async {
+      MessageService().addMessage(
+          user: authProvider.user,
+          isFromUser: true,
+          product: widget.product,
+          message: messageController.text);
+
+      setState(() {
+        widget.product = UninitializedProductModel();
+        messageController.text = '';
+      });
+    }
 
     Widget productReview() {
       return Container(
@@ -82,18 +100,23 @@ class _DetailChatState extends State<DetailChat> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            widget.product is UninitializedProductModel ? const SizedBox() : productReview(),
+            widget.product is UninitializedProductModel
+                ? const SizedBox()
+                : productReview(),
             Row(
               children: [
                 Expanded(
                   child: Container(
                     height: 45,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                         color: bgColor4,
                         borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: TextFormField(
+                        controller: messageController,
+                        style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Typle Message...',
                             hintStyle: subtitleTextStyle),
@@ -104,10 +127,13 @@ class _DetailChatState extends State<DetailChat> {
                 const SizedBox(
                   width: 20,
                 ),
-                Image.asset(
-                  'assets/Send_Button.png',
-                  width: 45,
-                  height: 45,
+                GestureDetector(
+                  onTap: handleAddMessage,
+                  child: Image.asset(
+                    'assets/Send_Button.png',
+                    width: 45,
+                    height: 45,
+                  ),
                 )
               ],
             ),
@@ -117,20 +143,22 @@ class _DetailChatState extends State<DetailChat> {
     }
 
     Widget content() {
-      return ListView(
-        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [
-          ChatBuble(
-            isSender: true,
-            text: 'Hi, This item is still available?',
-            hasProduct: true,
-          ),
-          ChatBuble(
-            isSender: false,
-            text: 'Good night, This item is only available in size 42 and 43',
-          )
-        ],
-      );
+      return StreamBuilder<List<MessageModel>?>(
+          stream: MessageService()
+              .getMessagesByUserId(userId: authProvider.user?.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                children: snapshot.data!.map((MessageModel message) => ChatBuble(
+                  isSender: message.isFromUser,
+                  text: message.message,
+                )).toList(),
+              );
+            } else {
+              return Center(child: CircularProgressIndicator(),);
+            }
+          });
     }
 
     return Scaffold(

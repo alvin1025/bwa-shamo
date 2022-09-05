@@ -17,7 +17,7 @@ class CartProvider with ChangeNotifier {
     if (productExist(product)) {
       int index =
           _carts.indexWhere((element) => element.product?.id == product.id);
-      _carts[index].quantity! + 1;
+      _carts[index].quantity = _carts[index].quantity! + 1;
     } else {
       _carts.add(
         CartModel(
@@ -37,12 +37,12 @@ class CartProvider with ChangeNotifier {
   }
 
   addQuantity(int id){
-    _carts[id].quantity! + 1;
+    _carts[id].quantity = _carts[id].quantity! + 1;
     notifyListeners();
   }
 
   reduceQuantity(int id){
-    _carts[id].quantity! - 1;
+    _carts[id].quantity = _carts[id].quantity! - 1;
     if (_carts[id].quantity == 0) {
       _carts.removeAt(id);
     }

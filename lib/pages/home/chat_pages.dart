@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakerz/models/message_model.dart';
+import 'package:sneakerz/providers/auth_provider.dart';
+import 'package:sneakerz/services/message_service.dart';
 import 'package:sneakerz/theme.dart';
 import 'package:sneakerz/widgets/chat_tile.dart';
 
@@ -7,6 +11,8 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     Widget header() {
       return AppBar(
         backgroundColor: bgColor1,
@@ -71,15 +77,31 @@ class ChatPage extends StatelessWidget {
     }
 
     Widget content() {
-      return Expanded(
-          child: Container(
-        color: bgColor3,
-        width: double.infinity,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: const [ChatTile()],
-        ),
-      ));
+      return StreamBuilder<List<MessageModel>?>(
+        stream:
+            MessageService().getMessagesByUserId(userId: authProvider.user?.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if(snapshot.data!.isEmpty){
+              return emptyChat();
+            }
+            return Expanded(
+              child: Container(
+                color: bgColor3,
+                width: double.infinity,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                  children: [
+                    ChatTile(snapshot.data![snapshot.data!.length - 1])
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return emptyChat();
+          }
+        },
+      );
     }
 
     return Column(

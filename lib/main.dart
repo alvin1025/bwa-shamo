@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sneakerz/pages/cart_page.dart';
 import 'package:sneakerz/pages/checkout_page.dart';
 import 'package:sneakerz/pages/checkout_success_page.dart';
-import 'package:sneakerz/pages/detail_chat_page.dart';
+// import 'package:sneakerz/pages/detail_chat_page.dart';
 import 'package:sneakerz/pages/edit_profile_pages.dart';
 import 'package:sneakerz/pages/home/main_page.dart';
 // import 'package:sneakerz/pages/product_page.dart';
