@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/cart_controller.dart';
 import 'package:sneakerz/models/cart_model.dart';
 import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/theme.dart';
@@ -8,10 +10,13 @@ class CartCard extends StatelessWidget {
   // const CartCard({Key? key}) : super(key: key);
   final CartModel cart;
   CartCard(this.cart);
+  
+
 
   @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    // CartProvider cartProvider = Provider.of<CartProvider>(context);
+    var cartController = Get.find<CartController>();
 
     return Container(
       margin: EdgeInsets.only(top: defaultMargin),
@@ -57,7 +62,7 @@ class CartCard extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      cartProvider.addQuantity(cart.id!);
+                      cartController.addQuantity(cart.id!);
                     },
                     child: Image.asset(
                       'assets/Button_Add.png',
@@ -76,7 +81,7 @@ class CartCard extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      cartProvider.reduceQuantity(cart.id!);
+                      cartController.reduceQuantity(cart.id!);
                     },
                     child: Image.asset(
                       'assets/Button_Min.png',
@@ -92,7 +97,7 @@ class CartCard extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-              cartProvider.removeCart(cart.id!);
+              cartController.removeCart(cart.id!);
             },
             child: Row(
               children: [

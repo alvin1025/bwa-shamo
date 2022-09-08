@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/register_controller.dart';
 import 'package:sneakerz/pages/home/main_page.dart';
 import 'package:sneakerz/pages/sign_in_pages.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
@@ -13,48 +15,38 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   // const SignUpPage({Key? key}) : super(key: key);
-  TextEditingController nameController = TextEditingController(text: '');
-
-  TextEditingController usernameController = TextEditingController(text: '');
-
-  TextEditingController emailController = TextEditingController(text: '');
-
-  TextEditingController passwordController = TextEditingController(text: '');
-
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
-    handleSignUp() async {
+    // handleSignUp() async {
 
-      setState(() {
-        isLoading = true;
-      });
+    //   setState(() {
+    //     isLoading = true;
+    //   });
 
+    //   if (await authProvider.register(
+    //     name: nameController.text,
+    //     username: usernameController.text,
+    //     email: emailController.text,
+    //     password: passwordController.text,
+    //   )) {
+    //     Navigator.push(
+    //         context, MaterialPageRoute(builder: (context) => const MainPage()));
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //         backgroundColor: alertColor,
+    //         content: Text(
+    //           'Gagal Register',
+    //           textAlign: TextAlign.center,
+    //         )));
+    //   }
 
-      if (await authProvider.register(
-        name: nameController.text,
-        username: usernameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-      )) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MainPage()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: alertColor,
-            content: Text(
-              'Gagal Register',
-              textAlign: TextAlign.center,
-            )));
-      }
-
-      setState(() {
-        isLoading = false;
-      });
-    }
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
 
     Widget header() {
       return Container(
@@ -80,7 +72,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
-    Widget fullNameInput() {
+    Widget fullNameInput(TextEditingController fullName) {
       return Container(
         margin: const EdgeInsets.only(top: 50),
         child: Column(
@@ -113,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Expanded(
                         child: TextFormField(
                       style: primaryTextStyle,
-                      controller: nameController,
+                      controller: fullName,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Full Name',
                           hintStyle: subtitleTextStyle),
@@ -127,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
-    Widget usernameInput() {
+    Widget usernameInput(TextEditingController username) {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -160,7 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Expanded(
                         child: TextFormField(
                       style: primaryTextStyle,
-                      controller: usernameController,
+                      controller: username,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Username',
                           hintStyle: subtitleTextStyle),
@@ -174,7 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
-    Widget emailInput() {
+    Widget emailInput(TextEditingController email) {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -207,7 +199,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Expanded(
                         child: TextFormField(
                       style: primaryTextStyle,
-                      controller: emailController,
+                      controller: email,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
                           hintStyle: subtitleTextStyle),
@@ -221,7 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
-    Widget passwordInput() {
+    Widget passwordInput(TextEditingController password) {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -255,7 +247,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: TextFormField(
                       obscureText: true,
                       style: primaryTextStyle,
-                      controller: passwordController,
+                      controller: password,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
                           hintStyle: subtitleTextStyle),
@@ -279,7 +271,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
-            onPressed: handleSignUp,
+            onPressed: () async {
+              await Get.find<RegisterController>().register(name: Get.find<RegisterController>().nameController.text, username: Get.find<RegisterController>().usernameController.text, email: Get.find<RegisterController>().emailController.text, password: Get.find<RegisterController>().passwordController.text);
+            },
             child: Text(
               'Sign Up',
               style:
@@ -316,27 +310,31 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
-    return Scaffold(
-      backgroundColor: bgColor1,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              fullNameInput(),
-              usernameInput(),
-              emailInput(),
-              passwordInput(),
-              isLoading ? const LoadingButton() : buttonSignUp(),
-              const Spacer(),
-              footer()
-            ],
+    return GetBuilder<RegisterController>(
+      builder: (register) {
+        return Scaffold(
+          backgroundColor: bgColor1,
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  header(),
+                  fullNameInput(register.nameController),
+                  usernameInput(register.usernameController),
+                  emailInput(register.emailController),
+                  passwordInput(register.passwordController),
+                  register.isLoading ? const LoadingButton() : buttonSignUp(),
+                  const Spacer(),
+                  footer()
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

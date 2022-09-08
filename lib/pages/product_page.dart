@@ -1,6 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/cart_controller.dart';
+import 'package:sneakerz/Controller/product_controller.dart';
+import 'package:sneakerz/Controller/wishlist_controller.dart';
+import 'package:sneakerz/Routing/route_name.dart';
 import 'package:sneakerz/models/product_model.dart';
 import 'package:sneakerz/pages/detail_chat_page.dart';
 import 'package:sneakerz/pages/home/chat_pages.dart';
@@ -36,8 +41,12 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    // WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+    // CartProvider cartProvider = Provider.of<CartProvider>(context);
+
+    var wishList = Get.find<WishlistController>();
+    var cart = Get.find<CartController>();
+    // var product = Get.find<ProductController>();
 
     //NOTE: MODALS
     Future<void> showSuccessDialog() async {
@@ -92,7 +101,7 @@ class _ProductPageState extends State<ProductPage> {
                           height: 44,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/cart');
+                              Get.toNamed(RouteNameGetX().cart);
                             },
                             style: TextButton.styleFrom(
                               backgroundColor: primaryColor,
@@ -236,29 +245,53 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      wishlistProvider.setProduct(widget.product);
-                      if (wishlistProvider.isWishlist(widget.product)) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                                backgroundColor: secondaryColor,
-                                content: Text(
-                                  'Has been added to the Wishlist',
-                                  textAlign: TextAlign.center,
-                                )));
+                      wishList.setProduct(widget.product);
+                      if (wishList.isWishlist(widget.product)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: secondaryColor,
+                            content: Text(
+                              'Has been added to the Wishlist',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                                backgroundColor: alertColor,
-                                content: Text(
-                                  'Has been removed from the Wishlist',
-                                  textAlign: TextAlign.center,
-                                )));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: secondaryColor,
+                            content: Text(
+                              'Has been removed from the Wishlist',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       }
+                      // wishlistProvider.setProduct(widget.product);
+                      // if (wishlistProvider.isWishlist(widget.product)) {
+                      //   ScaffoldMessenger.of(context)
+                      //       .showSnackBar(const SnackBar(
+                      //           backgroundColor: secondaryColor,
+                      //           content: Text(
+                      //             'Has been added to the Wishlist',
+                      //             textAlign: TextAlign.center,
+                      //           )));
+                      // } else {
+                      //   ScaffoldMessenger.of(context)
+                      //       .showSnackBar(const SnackBar(
+                      //           backgroundColor: alertColor,
+                      //           content: Text(
+                      //             'Has been removed from the Wishlist',
+                      //             textAlign: TextAlign.center,
+                      //           )));
+                      // }
                     },
                     child: Image.asset(
-                      wishlistProvider.isWishlist(widget.product)
-                          ? 'assets/WishLove.png'
-                          : 'assets/Button_Wishlist.png',
+                      // wishlistProvider.isWishlist(widget.product)
+                      //     ? 'assets/WishLove.png'
+                      //     :
+                      (wishList.isWishlist(widget.product)) ? 
+                      'assets/WishLove.png' : 'assets/Button_Wishlist.png',
                       width: 46,
                     ),
                   )
@@ -387,7 +420,8 @@ class _ProductPageState extends State<ProductPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12))),
                           onPressed: () {
-                            cartProvider.addCart(widget.product);
+                            cart.addCart(widget.product);
+                            // cartProvider.addCart(widget.product);
                             showSuccessDialog();
                           },
                           child: Text(

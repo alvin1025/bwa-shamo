@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/cart_controller.dart';
 // import 'package:sneakerz/models/cart_model.dart';
 import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/theme.dart';
@@ -11,8 +13,9 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
-    
+    // CartProvider cartProvider = Provider.of<CartProvider>(context);
+    var cart = Get.find<CartController>();
+
     Widget emptyCart() {
       return Container(
         width: double.infinity,
@@ -67,11 +70,14 @@ class CartPage extends StatelessWidget {
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: cartProvider.carts
-            .map(
-              (cart) => CartCard(cart),
-            )
-            .toList(),
+        children: cart.carts.map((cart) => CartCard(cart)).toList(),
+
+        // PROVIDER
+        // children: cartProvider.carts
+        //     .map(
+        //       (cart) => CartCard(cart),
+        //     )
+        //     .toList(),
       );
     }
 
@@ -90,10 +96,17 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$${cartProvider.totalPrice()}',
+                    '\$${cart.totalPrice()}',
                     style: priceTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
-                  )
+                  ),
+
+                  // PROVIDER
+                  // Text(
+                  //   '\$${cartProvider.totalPrice()}',
+                  //   style: priceTextStyle.copyWith(
+                  //       fontSize: 16, fontWeight: semiBold),
+                  // )
                 ],
               ),
             ),
@@ -153,8 +166,8 @@ class CartPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: cartProvider.carts.isEmpty ? emptyCart() : content(),
-      bottomNavigationBar: cartProvider.carts.isEmpty ? const SizedBox() : custonBottonNav(),
+      body: cart.carts.isEmpty ? emptyCart() : content(),
+      bottomNavigationBar: cart.carts.isEmpty ? const SizedBox() : custonBottonNav(),
     );
   }
 }

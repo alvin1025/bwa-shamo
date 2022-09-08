@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/cart_controller.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
+import 'package:sneakerz/Controller/product_controller.dart';
+import 'package:sneakerz/Controller/transaction_controller.dart';
+import 'package:sneakerz/Routing/route_name.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/providers/cart_provider.dart';
 import 'package:sneakerz/providers/transaction_provider.dart';
@@ -19,19 +25,26 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
   @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
-    TransactionProvider transactionProvider =
-        Provider.of<TransactionProvider>(context);
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    var userModel = Get.find<LoginController>();
+    var productController = Get.find<ProductController>();
+    var cartController = Get.find<CartController>();
+    var transactionController = Get.find<TransactionController>();
+
+
+    // CartProvider cartProvider = Provider.of<CartProvider>(context);
+    // TransactionProvider transactionProvider =
+    //     Provider.of<TransactionProvider>(context);
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     handleCheckout() async {
       setState(() {
         isLoading = true;
       });
 
-      if (await transactionProvider.checkout('${authProvider.user?.token}',
-          cartProvider.carts, cartProvider.totalPrice())) {
-        cartProvider.carts = [];
+      if (await transactionController.checkout('${userModel.user?.token}',
+          cartController.carts, cartController.totalPrice())) {
+        cartController.carts = [];
+        Get.toNamed(RouteNameGetX().checkoutSuccess);
         Navigator.pushNamedAndRemoveUntil(
             context, '/checkout-success', (route) => false);
       }
@@ -57,7 +70,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       fontSize: 16, fontWeight: medium),
                 ),
                 Column(
-                    children: cartProvider.carts
+                    children: cartController.carts
                         .map(
                           (cart) => CheckoutCard(cart),
                         )
@@ -172,7 +185,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           fontSize: 12, fontWeight: reguler),
                     ),
                     Text(
-                      '${cartProvider.totalItem()} Items',
+                      '${cartController.totalItem()} Items',
                       style: primaryTextStyle.copyWith(
                           fontSize: 14, fontWeight: medium),
                     ),
@@ -190,7 +203,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           fontSize: 12, fontWeight: reguler),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      '\$${cartController.totalPrice()}',
                       style: primaryTextStyle.copyWith(
                           fontSize: 14, fontWeight: medium),
                     ),
@@ -233,7 +246,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           fontSize: 14, fontWeight: semiBold),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      '\$${cartController.totalPrice()}',
                       style: priceTextStyle.copyWith(
                           fontSize: 14, fontWeight: semiBold),
                     ),

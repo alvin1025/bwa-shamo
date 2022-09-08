@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
 import 'package:sneakerz/models/user_model.dart';
 import 'package:sneakerz/pages/sign_in_pages.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
@@ -10,8 +12,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    UserModel? user = authProvider.user;
+    var userController = Get.find<LoginController>();
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // UserModel? user = authProvider.user;
 
     
     Widget header() {
@@ -26,7 +29,7 @@ class ProfilePage extends StatelessWidget {
               children: [
                 ClipOval(
                   child: Image.network(
-                    '${user?.profilePhotoUrl}',
+                    '${userController.user?.profilePhotoUrl}',
                     width: 64,
                   ),
                 ),
@@ -38,13 +41,13 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hallo, ${user?.name}',
+                        'Hallo, ${userController.user?.name}',
                         style: primaryTextStyle.copyWith(
                             fontSize: 24, fontWeight: semiBold),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        '@${user?.username}',
+                        '@${userController.user?.username}',
                         style: subtitleTextStyle.copyWith(fontSize: 16),
                       )
                     ],

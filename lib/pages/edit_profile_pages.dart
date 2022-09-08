@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakerz/models/user_model.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/theme.dart';
+
+import '../Controller/login_controller.dart';
 
 class EditProfile extends StatelessWidget {
   const EditProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    UserModel? user = authProvider.user;
+    var userController= Get.find<LoginController>();
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // UserModel? user = authProvider.user;
 
     Widget nameInput() {
       return Container(
@@ -26,7 +30,7 @@ class EditProfile extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: user?.name,
+                hintText: userController.user?.name,
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
                 enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),
@@ -52,7 +56,7 @@ class EditProfile extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: '@${user?.username}',
+                hintText: '@${userController.user?.username}',
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
                 enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),
@@ -78,7 +82,7 @@ class EditProfile extends StatelessWidget {
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: user?.email,
+                hintText: userController.user?.email,
                 hintStyle: primaryTextStyle.copyWith(fontSize: 16),
                 enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: subtitleColor),

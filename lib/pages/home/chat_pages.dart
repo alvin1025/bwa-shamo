@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
 import 'package:sneakerz/models/message_model.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/services/message_service.dart';
@@ -11,7 +13,8 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    var userController = Get.find<LoginController>();
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     Widget header() {
       return AppBar(
@@ -79,7 +82,7 @@ class ChatPage extends StatelessWidget {
     Widget content() {
       return StreamBuilder<List<MessageModel>?>(
         stream:
-            MessageService().getMessagesByUserId(userId: authProvider.user?.id),
+            MessageService().getMessagesByUserId(userId: userController.user?.id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if(snapshot.data!.isEmpty){

@@ -1,6 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/cart_controller.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
+import 'package:sneakerz/Controller/product_controller.dart';
+import 'package:sneakerz/Controller/register_controller.dart';
+import 'package:sneakerz/Controller/splash_screen_controller.dart';
+import 'package:sneakerz/Controller/transaction_controller.dart';
+import 'package:sneakerz/Controller/wishlist_controller.dart';
+import 'package:sneakerz/Routing/routes.dart';
 import 'package:sneakerz/pages/cart_page.dart';
 import 'package:sneakerz/pages/checkout_page.dart';
 import 'package:sneakerz/pages/checkout_success_page.dart';
@@ -20,6 +30,16 @@ import 'package:sneakerz/providers/wishlist_provider.dart';
 void main() async {
    WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // inisialisai controller
+  Get.put(SplashScreenController());
+  Get.put(LoginController());
+  Get.put(RegisterController());
+  Get.put(ProductController());
+  Get.put(WishlistController());
+  Get.put(CartController());
+  Get.put(TransactionController());
+  // Get.lazyPut(() => ProductController());
   runApp(MyApp());
 }
 
@@ -28,37 +48,48 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => AuthProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ProductProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => WishlistProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CartProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TransactionProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (context) => const SplashPage(),
-          '/sign-in': (context) => const SignInPage(),
-          '/sign-up': (context) => SignUpPage(),
-          '/home': (context) => const MainPage(),
-          '/edit-profile': (context) => const EditProfile(),
-          '/cart': (context) => const CartPage(),
-          '/checkout': (context) => const CheckOutPage(),
-          '/checkout-success': (context) => const CheckoutSuccessPage(),
-        },
-      ),
+    return GetMaterialApp(
+      // 404 notfound
+      initialRoute: '/',
+      getPages: RoutingGetX().route,
     );
+
+
+  // return
+
+
+
+  //   MultiProvider(
+  //     providers: [
+  //       ChangeNotifierProvider(
+  //         create: (context) => AuthProvider(),
+  //       ),
+  //       ChangeNotifierProvider(
+  //         create: (context) => ProductProvider(),
+  //       ),
+  //       ChangeNotifierProvider(
+  //         create: (context) => WishlistProvider(),
+  //       ),
+  //       ChangeNotifierProvider(
+  //         create: (context) => CartProvider(),
+  //       ),
+  //       ChangeNotifierProvider(
+  //         create: (context) => TransactionProvider(),
+  //       ),
+  //     ],
+  //     child: MaterialApp(
+  //       debugShowCheckedModeBanner: false,
+  //       routes: {
+  //         '/': (context) => SignUpPage(),
+  //         '/sign-in': (context) => const SignInPage(),
+  //         '/sign-up': (context) => SignUpPage(),
+          // '/home': (context) => const MainPage(),
+  //         '/edit-profile': (context) => const EditProfile(),
+  //         '/cart': (context) => const CartPage(),
+  //         '/checkout': (context) => const CheckOutPage(),
+  //         '/checkout-success': (context) => const CheckoutSuccessPage(),
+  //       },
+  //     ),
+  //   );
   }
 }

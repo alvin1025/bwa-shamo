@@ -21,11 +21,14 @@ class ProductService{
     if(response.statusCode == 200){
 
       List data = jsonDecode(response.body)['data']['data'];
+      print('list data : ${data}');
       List<ProductModel> products = [];
 
       for(var item in data){
         products.add(ProductModel.fromJson(item));
       }
+
+      
 
       return products;
     } else {
@@ -33,4 +36,6 @@ class ProductService{
     }
 
   }
+
+  
 }

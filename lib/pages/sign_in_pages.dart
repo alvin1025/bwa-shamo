@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
+import 'package:sneakerz/Routing/route_name.dart';
 import 'package:sneakerz/pages/home/main_page.dart';
 import 'package:sneakerz/pages/sign_up_pages.dart';
 import 'package:sneakerz/theme.dart';
@@ -15,44 +18,35 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-
-  TextEditingController emailController = TextEditingController(text: '');
-
-  TextEditingController passwordController = TextEditingController(text: '');
-
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
-    handleSignIn() async {
+    // handleSignIn() async {
 
-      setState(() {
-        isLoading = true;
-      });
+    //   setState(() {
+    //     isLoading = true;
+    //   });
 
+    //   if (await authProvider.login(
+    //     email: emailController.text,
+    //     password: passwordController.text,
+    //   )) {
+    //     Navigator.push(
+    //         context, MaterialPageRoute(builder: (context) => const MainPage()));
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //         backgroundColor: alertColor,
+    //         content: const Text(
+    //           'Gagal Login',
+    //           textAlign: TextAlign.center,
+    //         )));
+    //   }
 
-      if (await authProvider.login(
-        email: emailController.text,
-        password: passwordController.text,
-      )) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MainPage()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: alertColor,
-            content: const Text(
-              'Gagal Login',
-              textAlign: TextAlign.center,
-            )));
-      }
-
-      setState(() {
-        isLoading = false;
-      });
-    }
-
+    //   setState(() {
+    //     isLoading = false;
+    //   });
+    // }
 
     Widget header() {
       return Container(
@@ -78,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    Widget emailInput() {
+    Widget emailInput(TextEditingController email) {
       return Container(
         margin: const EdgeInsets.only(top: 70),
         child: Column(
@@ -111,7 +105,7 @@ class _SignInPageState extends State<SignInPage> {
                     Expanded(
                         child: TextFormField(
                       style: primaryTextStyle,
-                      controller: emailController,
+                      controller: email,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Email Address',
                           hintStyle: subtitleTextStyle),
@@ -125,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    Widget passwordInput() {
+    Widget passwordInput(TextEditingController password) {
       return Container(
         margin: const EdgeInsets.only(top: 20),
         child: Column(
@@ -157,9 +151,9 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Expanded(
                         child: TextFormField(
-                      obscureText: true,
+                      // obscureText: true,
                       style: primaryTextStyle,
-                      controller: passwordController,
+                      controller: password,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Your Password',
                           hintStyle: subtitleTextStyle),
@@ -183,7 +177,11 @@ class _SignInPageState extends State<SignInPage> {
                 backgroundColor: primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
-            onPressed: handleSignIn,
+            onPressed: () async {
+              print(Get.find<LoginController>().emailController.text);
+              print(Get.find<LoginController>().passwordController.text);
+              await Get.find<LoginController>().login(email: Get.find<LoginController>().emailController.text, password: Get.find<LoginController>().passwordController.text);
+            },
             child: Text(
               'Sign In',
               style:
@@ -191,6 +189,7 @@ class _SignInPageState extends State<SignInPage> {
             )),
       );
     }
+    
 
     Widget footer() {
       return Container(
@@ -205,8 +204,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
+                  Get.toNamed(RouteNameGetX().signUp);
                 },
                 child: Text(
                   'Sign Up',
@@ -218,25 +216,29 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
 
-    return Scaffold(
-      backgroundColor: bgColor1,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              emailInput(),
-              passwordInput(),
-              isLoading ? const LoadingButton() : buttonSignIn(),
-              const Spacer(),
-              footer()
-            ],
+    return GetBuilder<LoginController>(
+      builder: (login) {
+        return Scaffold(
+          backgroundColor: bgColor1,
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  header(),
+                  emailInput(login.emailController),
+                  passwordInput(login.passwordController),
+                  login.isLoading ? const LoadingButton() : buttonSignIn(),
+                  const Spacer(),
+                  footer()
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
