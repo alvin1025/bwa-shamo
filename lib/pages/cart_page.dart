@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/Controller/cart_controller.dart';
 // import 'package:sneakerz/models/cart_model.dart';
 import 'package:sneakerz/providers/cart_provider.dart';
@@ -84,73 +84,77 @@ class CartPage extends StatelessWidget {
     Widget custonBottonNav() {
       return Container(
         height: 180,
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Subtotal',
-                    style: primaryTextStyle,
-                  ),
-                  Text(
-                    '\$${cart.totalPrice()}',
-                    style: priceTextStyle.copyWith(
-                        fontSize: 16, fontWeight: semiBold),
-                  ),
-
-                  // PROVIDER
-                  // Text(
-                  //   '\$${cartProvider.totalPrice()}',
-                  //   style: priceTextStyle.copyWith(
-                  //       fontSize: 16, fontWeight: semiBold),
-                  // )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Divider(
-              thickness: 0.5,
-              color: subtitleColor,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-              height: 50,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/checkout');
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: GetBuilder<CartController>(
+          builder: (_) {
+            return Column(
                   children: [
-                    Text(
-                      'Continue to Checkout',
-                      style: primaryTextStyle.copyWith(
-                          fontSize: 16, fontWeight: semiBold),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Subtotal',
+                            style: primaryTextStyle,
+                          ),
+                          Text(
+                            '\$${cart.totalPrice()}',
+                            style: priceTextStyle.copyWith(
+                                fontSize: 16, fontWeight: semiBold),
+                          ),
+        
+                          // PROVIDER
+                          // Text(
+                          //   '$${cartProvider.totalPrice()}',
+                          //   style: priceTextStyle.copyWith(
+                          //       fontSize: 16, fontWeight: semiBold),
+                          // )
+                        ],
+                      ),
                     ),
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: primaryTextColor,
-                    )
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Divider(
+                      thickness: 0.5,
+                      color: subtitleColor,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                      height: 50,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/checkout');
+                        },
+                        style: TextButton.styleFrom(
+                            backgroundColor: primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Continue to Checkout',
+                              style: primaryTextStyle.copyWith(
+                                  fontSize: 16, fontWeight: semiBold),
+                            ),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: primaryTextColor,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-              ),
-            ),
-          ],
+                ); 
+          },
         ),
       );
     }

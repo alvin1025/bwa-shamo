@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/Controller/cart_controller.dart';
 import 'package:sneakerz/Controller/product_controller.dart';
 import 'package:sneakerz/Controller/wishlist_controller.dart';
@@ -290,8 +290,9 @@ class _ProductPageState extends State<ProductPage> {
                       // wishlistProvider.isWishlist(widget.product)
                       //     ? 'assets/WishLove.png'
                       //     :
-                      (wishList.isWishlist(widget.product)) ? 
-                      'assets/WishLove.png' : 'assets/Button_Wishlist.png',
+                      (wishList.isWishlist(widget.product))
+                          ? 'assets/WishLove.png'
+                          : 'assets/Button_Wishlist.png',
                       width: 46,
                     ),
                   )
@@ -439,10 +440,14 @@ class _ProductPageState extends State<ProductPage> {
       );
     }
 
-    return Scaffold(
-        backgroundColor: bgColor6,
-        body: ListView(
-          children: [header(), content()],
-        ));
+    return GetBuilder<WishlistController>(
+      builder: (_) {
+        return Scaffold(
+            backgroundColor: bgColor6,
+            body: ListView(
+              children: [header(), content()],
+            ));
+      },
+    );
   }
 }

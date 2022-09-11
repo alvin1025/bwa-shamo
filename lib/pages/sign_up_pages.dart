@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/Controller/register_controller.dart';
 import 'package:sneakerz/pages/home/main_page.dart';
 import 'package:sneakerz/pages/sign_in_pages.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/Controller/cart_controller.dart';
 import 'package:sneakerz/models/cart_model.dart';
 import 'package:sneakerz/providers/cart_provider.dart';
@@ -10,8 +10,6 @@ class CartCard extends StatelessWidget {
   // const CartCard({Key? key}) : super(key: key);
   final CartModel cart;
   CartCard(this.cart);
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,37 +56,42 @@ class CartCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      cartController.addQuantity(cart.id!);
-                    },
-                    child: Image.asset(
-                      'assets/Button_Add.png',
-                      width: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  Text(
-                    cart.quantity.toString(),
-                    style: primaryTextStyle.copyWith(fontWeight: medium),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      cartController.reduceQuantity(cart.id!);
-                    },
-                    child: Image.asset(
-                      'assets/Button_Min.png',
-                      width: 16,
-                    ),
-                  )
-                ],
+              GetBuilder<CartController>(
+                initState: (_) {},
+                builder: (_) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          cartController.addQuantity(cart.id!);
+                        },
+                        child: Image.asset(
+                          'assets/Button_Add.png',
+                          width: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        cart.quantity.toString(),
+                        style: primaryTextStyle.copyWith(fontWeight: medium),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          cartController.reduceQuantity(cart.id!);
+                        },
+                        child: Image.asset(
+                          'assets/Button_Min.png',
+                          width: 16,
+                        ),
+                      )
+                    ],
+                  );
+                },
               )
             ],
           ),
@@ -96,7 +99,7 @@ class CartCard extends StatelessWidget {
             height: 12,
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               cartController.removeCart(cart.id!);
             },
             child: Row(
@@ -110,7 +113,8 @@ class CartCard extends StatelessWidget {
                 ),
                 Text(
                   'Remove',
-                  style: alertTextStyle.copyWith(fontSize: 12, fontWeight: light),
+                  style:
+                      alertTextStyle.copyWith(fontSize: 12, fontWeight: light),
                 )
               ],
             ),

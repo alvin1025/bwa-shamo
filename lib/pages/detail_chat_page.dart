@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:sneakerz/Controller/login_controller.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/models/message_model.dart';
 import 'package:sneakerz/models/product_model.dart';
-import 'package:sneakerz/providers/auth_provider.dart';
+// import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/services/message_service.dart';
 import 'package:sneakerz/theme.dart';
 import 'package:sneakerz/widgets/chat_buble.dart';
@@ -20,11 +22,12 @@ class _DetailChatState extends State<DetailChat> {
   TextEditingController messageController = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    var userController= Get.find<LoginController>();
 
     handleAddMessage() async {
       MessageService().addMessage(
-          user: authProvider.user,
+          user: userController.user,
           isFromUser: true,
           product: widget.product,
           message: messageController.text);
@@ -145,7 +148,7 @@ class _DetailChatState extends State<DetailChat> {
     Widget content() {
       return StreamBuilder<List<MessageModel>?>(
           stream: MessageService()
-              .getMessagesByUserId(userId: authProvider.user?.id),
+              .getMessagesByUserId(userId: userController.user?.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(

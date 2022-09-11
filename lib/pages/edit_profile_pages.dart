@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:sneakerz/models/user_model.dart';
 import 'package:sneakerz/providers/auth_provider.dart';
 import 'package:sneakerz/theme.dart';
